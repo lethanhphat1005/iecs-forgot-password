@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt lại mật khẩu</title>
+  <style>
+    body { font-family: sans-serif; background: #f9f9f9; text-align: center; padding: 50px; }
+    form { display: inline-block; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+    input { width: 100%; padding: 10px; margin: 10px 0; }
+    button { padding: 10px 20px; background: #4F46E5; color: white; border: none; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Đặt lại mật khẩu</h2>
+  <form id="resetForm">
+    <input type="password" id="password" placeholder="Mật khẩu mới" required>
+    <button type="submit">Xác nhận</button>
+  </form>
+
+  <script>
+    const token = new URLSearchParams(window.location.search).get('code');
+    const apiUrl = 'https://your-strapi-domain.com/api/auth/reset-password';
+
+    document.getElementById('resetForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, password })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert('Đặt lại mật khẩu thành công!');
+      } else {
+        alert('Lỗi: ' + (data.error || 'Không xác định'));
+      }
+    });
+  </script>
+</body>
+</html>
