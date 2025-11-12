@@ -97,11 +97,11 @@
     const message = document.getElementById("message");
     const button = document.getElementById("submitBtn");
 
-    if (!token) {
-      message.textContent = "❌ Link không hợp lệ hoặc đã hết hạn.";
-      message.className = "message error";
-      document.getElementById("resetForm").style.display = "none";
-    }
+    // if (!token) {
+    //   message.textContent = "❌ Link không hợp lệ hoặc đã hết hạn.";
+    //   message.className = "message error";
+    //   document.getElementById("resetForm").style.display = "none";
+    // }
 
     document.getElementById("resetForm").addEventListener("submit", async (e) => {
       e.preventDefault();
