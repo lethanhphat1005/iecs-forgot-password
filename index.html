@@ -6,9 +6,10 @@
   <title>Đặt lại mật khẩu</title>
   <style>
     body { font-family: sans-serif; background: #f9f9f9; text-align: center; padding: 50px; }
-    form { display: inline-block; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
-    input { width: 100%; padding: 10px; margin: 10px 0; }
+    form { display: inline-block; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px #ccc; width: 100%; max-width: 350px; }
+    input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
     button { padding: 10px 20px; background: #4F46E5; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #3730A3; }
   </style>
 </head>
 <body>
@@ -26,17 +27,21 @@
       e.preventDefault();
       const password = document.getElementById('password').value;
 
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, password })
-      });
+      try {
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: token, password })
+        });
 
-      const data = await res.json();
-      if (res.ok) {
-        alert('Đặt lại mật khẩu thành công!');
-      } else {
-        alert('Lỗi: ' + (data.error || 'Không xác định'));
+        const data = await res.json();
+        if (res.ok) {
+          alert('Đặt lại mật khẩu thành công!');
+        } else {
+          alert('Lỗi: ' + (data.error?.message || 'Không xác định'));
+        }
+      } catch (err) {
+        alert('Không thể kết nối máy chủ.');
       }
     });
   </script>
