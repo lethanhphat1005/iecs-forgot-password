@@ -4,47 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt lại mật khẩu | IECS Connect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #4f46e5;
             --primary-hover: #4338ca;
             --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-gradient);
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
+        }
+
+        /* Header Styles */
+        header {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
             justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo {
+            height: 60px; /* Điều chỉnh kích thước logo */
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* Card Styles */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 28px;
             padding: 40px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             text-align: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         h2 {
-            font-size: 20px;
-            color: #1f2937;
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 10px 0;
+        }
+
+        .sub-text {
+            color: #6b7280;
+            font-size: 14px;
             margin-bottom: 30px;
         }
 
@@ -55,26 +83,29 @@
 
         label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            color: #4b5563;
+            color: #374151;
             margin-bottom: 8px;
+            margin-left: 4px;
         }
 
         input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
+            padding: 14px 18px;
+            border: 2px solid #f3f4f6;
+            border-radius: 14px;
             font-size: 16px;
+            background: white;
             transition: all 0.3s ease;
             box-sizing: border-box;
+            color: #1f2937;
         }
 
         input:focus {
             outline: none;
             border-color: var(--primary);
-            ring: 3px rgba(79, 70, 229, 0.1);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
         }
 
         button {
@@ -82,73 +113,92 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, background 0.3s;
+            transition: all 0.3s ease;
             margin-top: 10px;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
         }
 
         button:hover {
             background: var(--primary-hover);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -3px rgba(79, 70, 229, 0.4);
         }
 
         button:disabled {
             background: #9ca3af;
             cursor: not-allowed;
+            transform: none;
         }
 
         .status-msg {
-            margin-top: 20px;
-            font-size: 14px;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .error { background: #fef2f2; color: #dc2626; display: block; }
-        .success { background: #f0fdf4; color: #16a34a; display: block; }
-
-        .footer-link {
             margin-top: 25px;
             font-size: 14px;
-            color: #6b7280;
+            padding: 14px;
+            border-radius: 12px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .error { background: #fef2f2; color: #dc2626; display: block; border: 1px solid #fee2e2; }
+        .success { background: #f0fdf4; color: #16a34a; display: block; border: 1px solid #dcfce7; }
+
+        .footer-link {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .glass-card { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-<div class="glass-card">
-    <div class="logo">IECS Connect</div>
-    <h2>Thiết lập mật khẩu mới</h2>
-    
-    <form id="resetForm">
-        <div class="input-group">
-            <label>Mật khẩu mới</label>
-            <input type="password" id="password" placeholder="••••••••" required minlength="6">
-        </div>
+<header>
+    <img src="https://iecs.vn/wp-content/uploads/2020/05/logo-iecs-3.png" alt="IECS Logo" class="header-logo">
+</header>
+
+<div class="container">
+    <div class="glass-card">
+        <h2>Thiết lập mật khẩu</h2>
+        <p class="sub-text">Vui lòng nhập mật khẩu mới cho tài khoản của bạn.</p>
         
-        <div class="input-group">
-            <label>Xác nhận mật khẩu</label>
-            <input type="password" id="confirm" placeholder="••••••••" required>
+        <form id="resetForm">
+            <div class="input-group">
+                <label>Mật khẩu mới</label>
+                <input type="password" id="password" placeholder="Nhập tối thiểu 6 ký tự" required minlength="6">
+            </div>
+            
+            <div class="input-group">
+                <label>Xác nhận mật khẩu</label>
+                <input type="password" id="confirm" placeholder="Nhập lại mật khẩu" required>
+            </div>
+
+            <button type="submit" id="submitBtn">Cập nhật mật khẩu</button>
+            <div id="statusMsg" class="status-msg"></div>
+        </form>
+
+        <div class="footer-link">
+            Sau khi hoàn tất, bạn có thể quay lại ứng dụng IECS Connect để đăng nhập.
         </div>
-
-        <button type="submit" id="submitBtn">Cập nhật mật khẩu</button>
-        <div id="statusMsg" class="status-msg"></div>
-    </form>
-
-    <div class="footer-link">
-        Sau khi hoàn tất, hãy quay lại ứng dụng để đăng nhập.
     </div>
 </div>
 
 <script>
-    // Tự động lấy "code" từ URL (Strapi mặc định gửi ?code=...)
+    // Lấy "code" từ URL (hỗ trợ cả ?code= và ?token= cho chắc chắn)
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code"); 
+    const code = urlParams.get("code") || urlParams.get("token"); 
     const API_URL = "https://connect.iecs.vn/api/auth/reset-password";
     
     const form = document.getElementById("resetForm");
@@ -160,15 +210,13 @@
         const password = document.getElementById("password").value;
         const confirm = document.getElementById("confirm").value;
 
-        // 1. Kiểm tra khớp mật khẩu
         if (password !== confirm) {
-            showMsg("Mật khẩu xác nhận không khớp!", "error");
+            showMsg("⚠️ Mật khẩu xác nhận không khớp!", "error");
             return;
         }
 
-        // 2. Kiểm tra mã token (code)
         if (!code) {
-            showMsg("Liên kết không hợp lệ. Vui lòng yêu cầu lại mã mới.", "error");
+            showMsg("🚨 Liên kết không hợp lệ hoặc đã hết hạn. Vui lòng gửi lại yêu cầu từ ứng dụng.", "error");
             return;
         }
 
@@ -188,14 +236,14 @@
             const data = await res.json();
 
             if (res.ok) {
-                showMsg("Thành công! Mật khẩu đã được cập nhật.", "success");
+                showMsg("✅ Thành công! Mật khẩu của bạn đã được cập nhật. Hãy quay lại App để đăng nhập.", "success");
                 form.reset();
                 btn.style.display = "none";
             } else {
-                showMsg(data.error?.message || "Đã xảy ra lỗi, vui lòng thử lại.", "error");
+                showMsg("❌ " + (data.error?.message || "Mã xác thực không đúng hoặc đã hết hạn."), "error");
             }
         } catch (err) {
-            showMsg("Lỗi kết nối. Vui lòng kiểm tra internet.", "error");
+            showMsg("🚨 Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.", "error");
         } finally {
             setLoading(false);
         }
@@ -204,6 +252,7 @@
     function showMsg(text, type) {
         msg.textContent = text;
         msg.className = `status-msg ${type}`;
+        msg.style.display = "block";
     }
 
     function setLoading(isLoading) {
