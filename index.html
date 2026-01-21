@@ -6,8 +6,9 @@
     <title>Đặt lại mật khẩu | IECS Connect</title>
     
     <link rel="icon" type="image/png" href="https://connect.iecs.vn/uploads/Frame_4995_732d442279.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --primary: #4f46e5;
@@ -26,93 +27,70 @@
             align-items: center;
         }
 
-        /* HEADER CHỨA LOGO LẤY TỪ LINK BẠN CUNG CẤP */
-        header {
-            width: 100%;
-            padding: 40px 0 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        header { width: 100%; padding: 30px 0 10px 0; display: flex; justify-content: center; }
+        .header-logo { height: 90px; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
 
-        .header-logo {
-            height: 100px; /* Tăng kích thước logo cho rõ nét */
-            object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-            transition: transform 0.3s ease;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+        .container { display: flex; justify-content: center; align-items: center; width: 100%; padding: 20px; box-sizing: border-box; }
 
         .glass-card {
             background: var(--glass);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-radius: 32px;
-            padding: 40px;
+            padding: 35px;
             width: 100%;
             max-width: 400px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.4);
             text-align: center;
-            animation: fadeIn 0.8s ease-out;
         }
 
-        h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 8px;
-        }
+        h2 { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+        .sub-text { color: #6b7280; font-size: 14px; margin-bottom: 25px; }
 
-        .sub-text {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            text-align: left;
-            margin-bottom: 22px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4b5563;
-            margin-bottom: 8px;
-            padding-left: 4px;
-        }
-
+        .input-group { text-align: left; margin-bottom: 18px; position: relative; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #4b5563; margin-bottom: 8px; padding-left: 4px; }
+        
+        .password-wrapper { position: relative; width: 100%; }
+        
         input {
             width: 100%;
-            padding: 14px 20px;
+            padding: 14px 48px 14px 18px; /* Padding rộng để không đè lên icon */
             border: 2px solid #e5e7eb;
             border-radius: 16px;
             font-size: 16px;
-            transition: all 0.3s ease;
             box-sizing: border-box;
             background: #f9fafb;
+            transition: all 0.3s ease;
         }
 
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        input:focus { outline: none; border-color: var(--primary); background: white; }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #9ca3af;
+            font-size: 16px;
+            z-index: 10;
+            transition: color 0.2s;
         }
+
+        .toggle-password:hover { color: var(--primary); }
+
+        /* Strength UI */
+        .strength-container { display: flex; align-items: center; justify-content: flex-end; margin-top: 10px; margin-bottom: 15px; }
+        .strength-bars { display: flex; gap: 4px; margin-right: 8px; }
+        .bar { width: 25px; height: 4px; border-radius: 2px; background: #e5e7eb; transition: all 0.3s ease; }
+        .strength-text { font-size: 12px; font-weight: 700; min-width: 60px; text-align: right; }
+
+        /* Validation Hints */
+        .validation-hints { text-align: left; margin-bottom: 25px; background: rgba(0,0,0,0.02); padding: 15px; border-radius: 16px; }
+        .hint { display: flex; align-items: center; font-size: 13px; color: #9ca3af; margin-bottom: 8px; }
+        .hint i { font-size: 14px; margin-right: 10px; }
+        .hint.valid { color: #059669; font-weight: 600; }
+        .hint.valid i { color: #10b981; }
 
         button {
             width: 100%;
@@ -122,40 +100,16 @@
             padding: 16px;
             border-radius: 16px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
             box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
-            margin-top: 10px;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px -3px rgba(79, 70, 229, 0.4);
-        }
+        button:disabled { background: #d1d5db; color: #9ca3af; cursor: not-allowed; box-shadow: none; opacity: 0.7; }
 
-        button:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .status-msg {
-            margin-top: 20px;
-            font-size: 14px;
-            padding: 15px;
-            border-radius: 12px;
-            display: none;
-            line-height: 1.5;
-        }
-
+        .status-msg { margin-top: 20px; font-size: 14px; padding: 15px; border-radius: 12px; display: none; }
         .error { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
         .success { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
@@ -166,89 +120,162 @@
 
 <div class="container">
     <div class="glass-card">
-        <h2>Thiết lập mật khẩu mới</h2>
-        <p class="sub-text">Cập nhật mật khẩu cho tài khoản IECS Connect</p>
+        <h2>Thiết lập mật khẩu</h2>
+        <p class="sub-text" id="headerText">Mật khẩu cần đạt mức <b>Mạnh</b> để tiếp tục.</p>
         
         <form id="resetForm">
             <div class="input-group">
                 <label>Mật khẩu mới</label>
-                <input type="password" id="password" placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Nhập mật khẩu mới" required>
+                    <i class="fa-solid fa-eye-slash toggle-password" id="togglePassword"></i>
+                </div>
+            </div>
+
+            <div class="strength-container">
+                <div class="strength-bars">
+                    <div class="bar" id="bar1"></div>
+                    <div class="bar" id="bar2"></div>
+                    <div class="bar" id="bar3"></div>
+                </div>
+                <div class="strength-text" id="strengthLabel">Yếu</div>
+            </div>
+
+            <div class="validation-hints">
+                <div class="hint" id="lenHint"><i class="fa-regular fa-circle"></i> Ít nhất 6 ký tự</div>
+                <div class="hint" id="numHint"><i class="fa-regular fa-circle"></i> Chứa ít nhất 1 chữ số</div>
+                <div class="hint" id="specHint"><i class="fa-regular fa-circle"></i> Chứa 1 ký tự đặc biệt</div>
             </div>
             
             <div class="input-group">
                 <label>Xác nhận mật khẩu</label>
-                <input type="password" id="confirm" placeholder="Nhập lại mật khẩu" required>
+                <div class="password-wrapper">
+                    <input type="password" id="confirm" placeholder="Nhập lại mật khẩu" required>
+                    <i class="fa-solid fa-eye-slash toggle-password" id="toggleConfirm"></i>
+                </div>
             </div>
 
-            <button type="submit" id="submitBtn">Cập nhật mật khẩu</button>
+            <button type="submit" id="submitBtn" disabled>Cập nhật mật khẩu</button>
             <div id="statusMsg" class="status-msg"></div>
         </form>
     </div>
 </div>
 
 <script>
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // 1. Logic Ẩn/Hiện mật khẩu (Đã sửa để đúng icon eye/eye-slash)
+    function setupToggle(inputId, toggleId) {
+        const input = document.getElementById(inputId);
+        const toggle = document.getElementById(toggleId);
+        
+        toggle.addEventListener('click', () => {
+            const isPassword = input.getAttribute('type') === 'password';
+            input.setAttribute('type', isPassword ? 'text' : 'password');
+            
+            // Đổi class icon
+            toggle.classList.toggle('fa-eye');
+            toggle.classList.toggle('fa-eye-slash');
+        });
+    }
+    setupToggle('password', 'togglePassword');
+    setupToggle('confirm', 'toggleConfirm');
+
+    // 2. Kiểm tra mã Code ngay khi load trang
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code") || urlParams.get("token"); 
-    const API_URL = "https://connect.iecs.vn/api/auth/reset-password";
-    
-    const form = document.getElementById("resetForm");
-    const msg = document.getElementById("statusMsg");
-    const btn = document.getElementById("submitBtn");
 
-    form.onsubmit = async (e) => {
+    if (!code) {
+        showMsg("🚨 Mã xác thực bị thiếu. Hãy yêu cầu lại link mới từ App.", "error");
+        submitBtn.style.display = 'none';
+        document.getElementById('headerText').innerText = "⚠️ Liên kết không hợp lệ";
+    }
+
+    // 3. Password Validation & Strength
+    const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+    const hints = { 
+        length: document.getElementById('lenHint'), 
+        number: document.getElementById('numHint'), 
+        special: document.getElementById('specHint') 
+    };
+
+    function validate() {
+        const val = passwordInput.value;
+        const isLen = val.length >= 6;
+        const hasNum = /[0-9]/.test(val);
+        const hasSpec = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+
+        updateHint(hints.length, isLen);
+        updateHint(hints.number, hasNum);
+        updateHint(hints.special, hasSpec);
+
+        let strength = 0;
+        if (val.length > 0) strength = 1;
+        if (isLen && (hasNum || hasSpec)) strength = 2;
+        if (isLen && hasNum && hasSpec) strength = 3;
+
+        const colors = ['#e5e7eb', '#ef4444', '#f59e0b', '#10b981'];
+        document.getElementById('strengthLabel').innerText = ['', 'Yếu', 'Trung bình', 'Mạnh'][strength];
+        document.getElementById('strengthLabel').style.color = colors[strength];
+        bars.forEach((bar, i) => bar.style.background = i < strength ? colors[strength] : '#e5e7eb');
+
+        // Nút chỉ mở khi đạt mức 3 (Mạnh) và có mã code
+        submitBtn.disabled = (strength < 3 || !code);
+    }
+
+    passwordInput.addEventListener('input', validate);
+    confirmInput.addEventListener('input', validate);
+
+    function updateHint(el, ok) { 
+        el.classList.toggle('valid', ok); 
+        el.querySelector('i').className = ok ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'; 
+    }
+
+    // 4. Submit API
+    document.getElementById("resetForm").onsubmit = async (e) => {
         e.preventDefault();
-        const password = document.getElementById("password").value;
-        const confirm = document.getElementById("confirm").value;
-
-        if (password !== confirm) {
-            showMsg("❌ Mật khẩu xác nhận không khớp!", "error");
-            return;
+        if (passwordInput.value !== confirmInput.value) { 
+            showMsg("❌ Mật khẩu xác nhận không khớp!", "error"); 
+            return; 
         }
 
-        if (!code) {
-            showMsg("⚠️ Liên kết không hợp lệ. Vui lòng gửi lại yêu cầu từ App.", "error");
-            return;
-        }
-
-        setLoading(true);
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Đang xử lý...";
 
         try {
-            const res = await fetch(API_URL, {
+            const res = await fetch("https://connect.iecs.vn/api/auth/reset-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
                     code: code, 
-                    password: password, 
-                    passwordConfirmation: confirm 
+                    password: passwordInput.value, 
+                    passwordConfirmation: confirmInput.value 
                 }),
             });
 
             if (res.ok) {
-                showMsg("✅ Thành công! Mật khẩu đã được cập nhật. Bạn có thể quay lại App để đăng nhập.", "success");
-                form.reset();
-                btn.style.display = "none";
+                showMsg("✅ Thành công! Hãy quay lại App để đăng nhập.", "success");
+                submitBtn.style.display = "none";
             } else {
                 const data = await res.json();
-                showMsg("❌ " + (data.error?.message || "Mã xác thực không hợp lệ."), "error");
+                showMsg("❌ " + (data.error?.message || "Lỗi xác thực."), "error");
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Cập nhật mật khẩu";
             }
-        } catch (err) {
-            showMsg("🚨 Lỗi kết nối. Vui lòng thử lại sau.", "error");
-        } finally {
-            setLoading(false);
+        } catch (err) { 
+            showMsg("🚨 Lỗi kết nối.", "error"); 
+            submitBtn.disabled = false; 
         }
     };
 
-    function showMsg(text, type) {
-        msg.textContent = text;
-        msg.className = `status-msg ${type}`;
-        msg.style.display = "block";
-    }
-
-    function setLoading(isLoading) {
-        btn.disabled = isLoading;
-        btn.textContent = isLoading ? "Đang xử lý..." : "Cập nhật mật khẩu";
+    function showMsg(t, c) { 
+        const m = document.getElementById("statusMsg"); 
+        m.textContent = t; 
+        m.className = `status-msg ${c}`; 
+        m.style.display = "block"; 
     }
 </script>
-
 </body>
 </html>
